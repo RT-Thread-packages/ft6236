@@ -35,12 +35,18 @@ void ft6236_thread_entry(void *parameter)
 
         if (read_data->event == RT_TOUCH_EVENT_DOWN)
         {
-            rtgui_server_post_touch(read_data->x_coordinate, read_data->y_coordinate, 1);
+            rt_kprintf("down x: %03d y: %03d", read_data->x_coordinate, read_data->y_coordinate);
+            rt_kprintf(" t: %d\n", read_data->timestamp);
         }
-
+        if (read_data->event == RT_TOUCH_EVENT_MOVE)
+        {
+            rt_kprintf("move x: %03d y: %03d", read_data->x_coordinate, read_data->y_coordinate);
+            rt_kprintf(" t: %d\n", read_data->timestamp);
+        }
         if (read_data->event == RT_TOUCH_EVENT_UP)
         {
-            rtgui_server_post_touch(read_data->x_coordinate, read_data->y_coordinate, 0);
+            rt_kprintf("up   x: %03d y: %03d", read_data->x_coordinate, read_data->y_coordinate);
+            rt_kprintf(" t: %d\n\n", read_data->timestamp);
         }
         rt_thread_delay(10);
     }
