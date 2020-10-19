@@ -12,7 +12,6 @@
 #include <rtdevice.h>
 #include "touch.h"
 
-
 #define DBG_TAG "ft6236"
 #define DBG_LVL DBG_LOG
 #include <rtdbg.h>
@@ -77,18 +76,14 @@ static void ft6236_read_reg(struct rt_i2c_bus_device *bus, rt_uint8_t reg, rt_ui
     }
 }
 
-#include <rtthread.h>
-#include <drv_common.h>
-
-#define REST_PIN GET_PIN(D, 3)
-static void ft6236_init(struct rt_i2c_bus_device *bus)
+static void ft6236_init(struct rt_i2c_bus_device *bus, rt_base_t pin)
 {
 
-    rt_pin_mode(REST_PIN, PIN_MODE_OUTPUT);
+    rt_pin_mode(pin, PIN_MODE_OUTPUT);
 
-    rt_pin_write(REST_PIN, 0);
+    rt_pin_write(pin, 0);
     rt_thread_mdelay(50);
-    rt_pin_write(REST_PIN, 1);
+    rt_pin_write(pin, 1);
     rt_thread_mdelay(100);
 
     ft6236_write_reg(bus, FT_DEVIDE_MODE, 0);
@@ -209,7 +204,7 @@ struct rt_touch_info info =
     480,
 };
 
-int rt_hw_ft6236_init(const char *name, struct rt_touch_config *cfg)
+int rt_hw_ft6236_init(const char *name, struct rt_touch_config *cfg,  rt_base_t pin)
 {
     rt_touch_t touch_device = RT_NULL;
     struct rt_i2c_bus_device * i2c_bus = RT_NULL;
@@ -226,7 +221,7 @@ int rt_hw_ft6236_init(const char *name, struct rt_touch_config *cfg)
         return -RT_EIO;
     }
 
-    ft6236_init(i2c_bus);
+    ft6236_init(i2c_bus, pin);
 
     rt_memcpy(&touch_device->config, cfg, sizeof(struct rt_touch_config));
 
