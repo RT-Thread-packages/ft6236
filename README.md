@@ -75,7 +75,7 @@ int rt_hw_6236_init(void)
     struct rt_touch_config config;
     config.dev_name = "i2c1";
     
-    rt_hw_ft5426_init("touch", &config， REST_PIN);
+    rt_hw_ft6236_init("touch", &config， REST_PIN);
     
     return 0;
 }
