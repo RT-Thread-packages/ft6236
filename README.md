@@ -56,24 +56,26 @@ RT-Thread online packages  --->
 ft6236 软件包初始化函数如下所示：
 
 ```c
-int rt_hw_ft6236_init(const char *name, struct rt_touch_config *cfg)
+int rt_hw_ft6236_init(const char *name, struct rt_touch_config *cfg,  rt_base_t pin)
 ```
 
 该函数需要由用户调用，函数主要完成的功能有：
 
 - 设备配置和初始化（根据传入的配置信息，配置接口设备）；
 - 注册相应的传感器设备，完成 ft6236 设备的注册；
+- 设置复位引脚
 
 #### 初始化示例
 
 ```c
+#define REST_PIN GET_PIN(D, 3)
 
 int rt_hw_6236_init(void)
 {
     struct rt_touch_config config;
     config.dev_name = "i2c1";
     
-    rt_hw_ft5426_init("touch", &config);
+    rt_hw_ft5426_init("touch", &config， REST_PIN);
     
     return 0;
 }

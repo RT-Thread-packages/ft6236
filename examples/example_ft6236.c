@@ -13,6 +13,7 @@
 #include <rtdevice.h>
 #include "ft6236.h"
 #include "touch.h"
+#include "drv_common.h"
 
 #define DBG_TAG "ft6236_example"
 #define DBG_LVL DBG_LOG
@@ -46,12 +47,14 @@ void ft6236_thread_entry(void *parameter)
 
 }
 
+#define REST_PIN GET_PIN(D, 3)
+
 int ft6236_example(void)
 {
     struct rt_touch_config cfg;
 
     cfg.dev_name = "i2c1";
-    rt_hw_ft6236_init("touch", &cfg);
+    rt_hw_ft6236_init("touch", &cfg, REST_PIN);
 
     touch = rt_device_find("touch");
 
