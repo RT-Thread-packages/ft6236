@@ -96,9 +96,9 @@ static rt_size_t ft6236_readpoint(struct rt_touch_device *touch, void *data, rt_
     rt_uint8_t buf[4];
     struct rt_i2c_bus_device * i2c_bus = RT_NULL;
 
-    static rt_uint8_t s_tp_down = 0;
-    static uint16_t x_save, y_save;
-    static rt_uint8_t s_count = 0;
+    static rt_uint8_t  s_tp_down = 0;
+    static rt_uint16_t x_save, y_save;
+    static rt_uint8_t  s_count = 0;
 
     struct rt_touch_data *temp_data;
 
