@@ -10,7 +10,13 @@
 
 #include <rtthread.h>
 #include <rtdevice.h>
-#include "touch.h"
+
+#if defined(RT_VERSION_CHECK) && (RTTHREAD_VERSION >= RT_VERSION_CHECK(4, 1, 1))
+#include <rtdevice.h>
+#else
+#include <rtdevice.h>
+#include <touch.h>
+#endif
 
 #define DBG_TAG "ft6236"
 #define DBG_LVL DBG_LOG
